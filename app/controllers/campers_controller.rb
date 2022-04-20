@@ -1,17 +1,16 @@
 class CampersController < ApplicationController
     
   def index
-    campers = Camper.all 
-    render json: campers 
+    camper = Camper.all
+    render json: camper
   end
 
   def show
-    camper = Camper.find(id: params[:id])
-    render json: camper, include: [:activities]
+    camper = Camper.find_by(id: params[:id])
+    if
+      render json: camper, include: [:activities]
+    else 
+      render json: {error: "Camper not found"}, status: :not_found
+    end
   end
-
-  def create
-
-  end
-
 end
